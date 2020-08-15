@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 const { Title } = Typography;
 const {TextArea} = Input;
@@ -24,6 +25,7 @@ function UploadVideoPage() {
     const [description, setDescription] = useState("");
     const [privacy, setPrivacy] = useState(0);
     const [categories, setCategories] = useState("Film & Animation");
+    const [filePath, setfilePath] = useState("");
     
     const handleChangeTitle = (event) => {
         setTitle(event.currentTarget.value);
@@ -45,6 +47,38 @@ function UploadVideoPage() {
 
     }
 
+    const onDrop = (files) =>{
+
+        let formData = new FormData();
+        const config = {
+            header: { 'content-type': 'multipart/form-data' }
+        }
+
+        console.log(files);
+        formData.append("file", files[0]);
+
+        axios.post('/api/video/uploadfiles', formData, config)
+            .then(response => {
+                
+                if(response.data.success){
+                    
+                    let variable = {
+                        filePath: response.data.filePath,
+                        fileName: response.data.fileName
+                    }
+                    setfilePath(response.data.filePath);
+
+                    //generate thumbnail with this filepath
+
+                } else {
+                    alert('failed to save the video');
+                }
+
+            })
+        ;
+
+    }
+
     return (
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
     
@@ -57,6 +91,7 @@ function UploadVideoPage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
                     <Dropzone 
+                        onDrop={onDrop}
                         multiple={false}
                         maxSize={800000000}>
                         {({ getRootProps, getInputProps }) =>(
