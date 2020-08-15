@@ -5,7 +5,20 @@ import Dropzone from 'react-dropzone';
 const { Title } = Typography;
 const {TextArea} = Input;
 
-export default function UploadVideoPage() {
+const Private = [
+    { value: 0, label: 'Private' },
+    { value: 1, label: 'Public' }
+]
+
+const Catogory = [
+    { value: 0, label: 'Film & Animation' },
+    { value: 0, label: 'Autos & Vehicles' },
+    { value: 0, label: 'Music' },
+    { value: 0, label: 'Pets & Animals' },
+    { value: 0, label: 'Sports' }
+]
+
+function UploadVideoPage() {
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -20,6 +33,18 @@ export default function UploadVideoPage() {
         setDescription(event.currentTarget.value);
     }
     
+    const handleChangeOne = (event) => {
+        setPrivacy(event.currentTarget.value);
+    }
+    
+    const handleChangeTwo = (event) => {
+        setCategories(event.currentTarget.value);
+    }
+
+    const onSubmit = () =>{
+
+    }
+
     return (
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
     
@@ -27,7 +52,7 @@ export default function UploadVideoPage() {
                 <Title level={2}> Upload Video </Title>
             </div>   
 
-            <Form >
+            <Form onSubmit={onSubmit}>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
@@ -68,22 +93,23 @@ export default function UploadVideoPage() {
                 />
 
                 <br/><br/>
-                {/* <select onChange={handleChangeOne}>
+                <select onChange={handleChangeOne}>
                     {Private.map((item, index) =>(
                         <option key={index} value={item.value}>{item.label}</option>
                     ))}
-                </select> */}
+                </select>
 
                 <br/><br/>
-                {/* <select onChange={handleChangeTwo}>
+                <select onChange={handleChangeTwo}>
                     {Catogory.map((item, index) =>(
                         <option key={index} value={item.label}>{item.label}</option>
                     ))}
-                </select> */}
+                </select>
 
-                {/* <Button type="primary" size="large" onClick={onSubmit}>
+                <br/><br/>
+                <Button type="primary" size="large" onClick={onSubmit}>
                         Submit
-                </Button> */}
+                </Button>
 
             </Form>
 
@@ -91,3 +117,5 @@ export default function UploadVideoPage() {
     );
 
 }
+
+export default UploadVideoPage;
