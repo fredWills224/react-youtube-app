@@ -1,11 +1,24 @@
- import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
-// import TextArea from 'antd/lib/input/TextArea';
+import Dropzone from 'react-dropzone';
 
 const { Title } = Typography;
 const {TextArea} = Input;
 
 export default function UploadVideoPage() {
+    
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [privacy, setPrivacy] = useState(0);
+    const [categories, setCategories] = useState("Film & Animation");
+    
+    const handleChangeTitle = (event) => {
+        setTitle(event.currentTarget.value);
+    }
+    
+    const handleChangeDescription = (event) => {
+        setDescription(event.currentTarget.value);
+    }
     
     return (
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
@@ -18,11 +31,11 @@ export default function UploadVideoPage() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-                    {/* <Dropzone onDrop={onDrop}
+                    <Dropzone 
                         multiple={false}
                         maxSize={800000000}>
                         {({ getRootProps, getInputProps }) =>(
-                            <div style={{width: '300px', height:'240px', border:'1px solid lightgray', display: 'flex', alignItems:[?]}}
+                            <div style={{width: '300px', height:'240px', border:'1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                                 {...getRootProps()}
                             >
                                 <input {...getInputProps()}/>
@@ -32,7 +45,7 @@ export default function UploadVideoPage() {
                         )}
                     </Dropzone>
 
-                    {thumbnail !== "" &&
+                    {/* {thumbnail !== "" &&
                         <div>
                             <img src={`http://localhost:5000/${thumbnail}`} alt="haha" />
                         </div>
@@ -43,15 +56,15 @@ export default function UploadVideoPage() {
                 <br/><br/>
                 <label>Title</label>
                 <Input
-                    // onChange={handleChangeTitle}
-                    // value={title}
+                    onChange={handleChangeTitle}
+                    value={title}
                 />
                 
                 <br/><br/>
                 <label>description</label>
                 <TextArea
-                    // onChange={handleChangeDescription}
-                    // value={description}
+                    onChange={handleChangeDescription}
+                    value={description}
                 />
 
                 <br/><br/>
