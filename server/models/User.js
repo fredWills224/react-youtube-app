@@ -48,9 +48,11 @@ userSchema.pre('save', function( next ) {
             
             if(err) return next(err);
             bcryptjs.hash(user.password, salt, function(err, hash){
+
                 if(err) return next(err);
                 user.password = hash; 
                 next();
+
             });
 
         });
@@ -58,6 +60,7 @@ userSchema.pre('save', function( next ) {
     } else {
         next();
     }
+    
 });
 
 userSchema.methods.comparePassword = function(plainPassword,cb){
