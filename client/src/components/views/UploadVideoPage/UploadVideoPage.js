@@ -67,7 +67,7 @@ function UploadVideoPage() {
                     console.log(response);
                     let variable = {
                         filePath: response.data.filePath,
-                        fileName: response.data.fileName
+                        filename: response.data.filename
                     }
                     
                     setFilePath(response.data.filePath);

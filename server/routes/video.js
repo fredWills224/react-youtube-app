@@ -18,8 +18,8 @@ let storage = multer.diskStorage({
     fileFilter:(req, file, cb) => {
         
         const ext = path.extname(file.originalname)
-        if(ext !== '.mp4' || ext !== '.jpg') {
-            return cb(res.status(400).end('only mp4 or jpeg files are allowed'), false);
+        if(ext !== '.mp4') {
+            return cb(res.status(400).end('only mp4 files are allowed'), false);
         }
         cb(null, true);
 
@@ -28,7 +28,7 @@ let storage = multer.diskStorage({
 
 });
 
-let upload = multer({ storage: storage }).single("file");
+var upload = multer({ storage: storage }).single("file");
 
 //=================================
 //             Video
@@ -71,11 +71,11 @@ router.post("/thumbnail", (req, res) =>{
         })
         .screenshots({
             //Will take screens at 20%, 40%, 60%, and 80% of the video
-            count: 3,
+            count: 4,
             folder: 'uploads/thumbnails',
             size: '320x240',
             // %b input basename ( filename w/o extension )
-            filename: '%b.jpg'
+            filename:'thumbnail-%b.png'
         })
     ;
 
