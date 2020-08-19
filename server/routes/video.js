@@ -42,7 +42,7 @@ router.post("/uploadfiles", (req, res) => {
             return res.json({success: false, err})
         }
         return res.json({success: true, filePath: res.req.file.path, 
-            fileName: res.req.file.fileName})
+            filename: res.req.file.filename})
         ;
 
     });
@@ -75,7 +75,7 @@ router.post("/thumbnail", (req, res) =>{
             folder: 'uploads/thumbnails',
             size: '320x240',
             // %b input basename ( filename w/o extension )
-            fileName: 'thumbnail-b%.png'
+            filename: '%b.jpg'
         })
     ;
 
