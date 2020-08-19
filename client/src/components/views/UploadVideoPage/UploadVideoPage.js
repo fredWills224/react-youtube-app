@@ -25,7 +25,9 @@ function UploadVideoPage() {
     const [description, setDescription] = useState("");
     const [privacy, setPrivacy] = useState(0);
     const [categories, setCategories] = useState("Film & Animation");
-    const [filePath, setfilePath] = useState("");
+    const [filePath, setFilePath] = useState("");
+    const [duration, setDuration] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
     
     const handleChangeTitle = (event) => {
         setTitle(event.currentTarget.value);
@@ -62,16 +64,30 @@ function UploadVideoPage() {
                 
                 if(response.data.success){
                     
+                    console.log(response);
                     let variable = {
                         filePath: response.data.filePath,
                         fileName: response.data.fileName
                     }
-                    setfilePath(response.data.filePath);
+                    
+                    setFilePath(response.data.filePath);
 
                     //generate thumbnail with this filepath
+                    axios.post('/api/video/thumbnail', variable)
+                        .then(response =>{
+
+                            if (response.data.success){
+                                setDuration(response.data.fileDuration)
+                                setThumbnail(response.data.thumbsFilePath)                   
+                            } else {
+                                alert('Failed to make the thumbnail');
+                            }
+
+                        })
+                    ; 
 
                 } else {
-                    alert('failed to save the video');
+                    alert('failed to save the video in server');
                 }
 
             })
@@ -105,11 +121,11 @@ function UploadVideoPage() {
                         )}
                     </Dropzone>
 
-                    {/* {thumbnail !== "" &&
+                    {thumbnail !== "" &&
                         <div>
                             <img src={`http://localhost:5000/${thumbnail}`} alt="haha" />
                         </div>
-                    } */}
+                    }
 
                 </div>
 
