@@ -4,7 +4,6 @@ const multer = require('multer');
 var ffmpeg = require('fluent-ffmpeg');
 
 const { Video } = require("../models/Video");
-
 const { auth } = require("../middleware/auth");
 
 let storage = multer.diskStorage({
@@ -12,9 +11,11 @@ let storage = multer.diskStorage({
     destination: function(req, file, cb){
         cb(null, 'uploads/thumbnails');
     },
+
     filename: function(req, file, cb){
         cb(null, `${Date.now()}_${file.originalname}`);
     },
+
     fileFilter:(req, file, cb) => {
         
         const ext = path.extname(file.originalname)
@@ -24,7 +25,6 @@ let storage = multer.diskStorage({
         cb(null, true);
 
     }
-
 
 });
 
@@ -41,6 +41,7 @@ router.post("/uploadfiles", (req, res) => {
         if(err){
             return res.json({success: false, err})
         }
+        
         return res.json({success: true, filePath: res.req.file.path, 
             filename: res.req.file.filename})
         ;
@@ -53,11 +54,12 @@ router.post("/thumbnail", (req, res) =>{
 
     let thumbsFilePath = "";
     let fileDuration = "";
-
     ffmpeg.ffprobe(req.body.filePath, function(err, metadata){
+    
         console.dir(metadata);
         console.log(metadata.format.duration);
         fileDuration = metadata.format.duration;
+    
     })
 
     ffmpeg(req.body.filePath)
@@ -76,6 +78,18 @@ router.post("/thumbnail", (req, res) =>{
             size: '320x240',
             // %b input basename ( filename w/o extension )
             filename:'thumbnail-%b.png'
+        })
+    ;
+
+});
+
+router.get("/getVideos", (req, res) =>{
+
+    Video.find()
+        .populate("writer")
+        .exec((err, videos) => {
+            if(err) return res.status(400).send(err);
+            res.status(200).json({ success: true, videos });
         })
     ;
 

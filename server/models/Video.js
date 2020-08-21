@@ -5,7 +5,7 @@ const videoSchema = mongoose.Schema({
 
     writer: {
         type:Schema.Types.ObjectId,
-        ref:'user'
+        ref:'User'
     },
     title:{
         type:String,
