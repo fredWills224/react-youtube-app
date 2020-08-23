@@ -54,7 +54,7 @@ function Subscriber(props) {
 
     useEffect(()=>{
         
-        const subscribeNumberVariables = { userTo:userTo }
+        const subscribeNumberVariables = { userTo:userTo, userFrom: userFrom }
         axios.post('/api/subscribe/subscribeNumber', subscribeNumberVariables)
             .then(response=>{
 
@@ -86,13 +86,15 @@ function Subscriber(props) {
     return (
         <div>
             <button 
+                
                 onClick={onSubscribe}
                 style={{ 
-                backgroundColor: `${Subscribed ? '#AAAAAA' : '#CC0000'}`,
-                borderRadius: '4px', color: 'white',
-                padding: '10px 16px', fontWeight: '500', fontSize: '1rem', textTransform: 'uppercase'
-             }}>
+                    backgroundColor: `${Subscribed ? '#AAAAAA' : '#CC0000'}`,
+                    borderRadius: '4px', color: 'white',
+                    padding: '10px 16px', fontWeight: '500', fontSize: '1rem', textTransform: 'uppercase'
+                }}>
                 {SubscribeNumber} {Subscribed ? 'Subscribed' : 'Subscribe'}
+            
             </button>
         </div>
     )
