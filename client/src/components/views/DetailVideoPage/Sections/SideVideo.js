@@ -65,6 +65,7 @@ function SideVideo() {
             </div>
         </React.Fragment>        
     )
+
 }
 
 export default SideVideo
