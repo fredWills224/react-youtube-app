@@ -62,7 +62,7 @@ function Comments(props) {
             ))}
 
             {/* Root Comment Form */}
-            <form style={{ display: 'flex' }} onSubmit>
+            <form style={{ display: 'flex' }} onSubmit={onSubmit}>
 
                 <TextArea
                     style={{ width: '100%', borderRadius: '5px' }}
