@@ -74,11 +74,11 @@ function LikeDislikes(props) {
         if(LikeAction === null){
 
             axios.post('/api/like/upLike', variable)
-                .then(response => {
+                .then(response =>{
 
-                    if(response.data.sucess){
+                    if(response.data.success){
 
-                        setLikes(Likes +1);
+                        setLikes(Likes + 1);
                         setLikeAction('liked');
 
                         //if dislike button is already clicked
@@ -86,21 +86,20 @@ function LikeDislikes(props) {
                             setDislikeAction(null);
                             setDislikes(Dislikes -1);
                         }
-                        
 
                     }else{
-                        alert('failed to increase the like');
+                        alert('failed to increase likes');
                     }
 
                 })
-            ;
-
+            ;   
+ 
         } else{
 
             axios.post('/api/like/unLike', variable)
                 .then(response => {
 
-                    if(response.data.sucess){
+                    if(response.data.success){
 
                         setLikes(Likes - 1);
                         setLikeAction(null);
