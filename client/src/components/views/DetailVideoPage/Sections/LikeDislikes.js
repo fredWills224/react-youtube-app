@@ -147,7 +147,7 @@ function LikeDislikes(props) {
                         setDislikeAction('disliked');
 
                         //if dislike button is already clicked
-                        if(DislikeAction !== null){
+                        if(LikeAction !== null){
                             setLikeAction(null);
                             setLikes(Likes -1);
                         }
